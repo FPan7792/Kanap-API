@@ -44,12 +44,6 @@
 
 	const addItemToBasket = async () => {
 		if (colorSelection.value !== '') {
-			// let currentBasket = [];
-
-			// if (STOREDPRODUCTS) {
-			// 	currentBasket = STOREDPRODUCTS;
-			// }
-
 			requestedQuantity.value++;
 
 			let itemToAdd = {

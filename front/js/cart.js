@@ -151,6 +151,19 @@ fetch('http://localhost:3000/api/products')
 			const validOrderButton = document.querySelector('#order');
 			validOrderButton.addEventListener('click', sendDatasForConfirmation);
 
+			// DEPLACE
+			// envoi de la commande au backend pour confirmation
+			function sendfinalOrder(url, datas) {
+				console.log(datas);
+				fetch(url, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(datas),
+				}).then(() =>  console.log('DATAS ENVOYEE AVEC SUCCES')).then((response) => console.log(response));
+			}
+
 			async function sendDatasForConfirmation(event) {
 				event.preventDefault();
 
@@ -251,20 +264,12 @@ fetch('http://localhost:3000/api/products')
 							products: arrayOfOrderIDs,
 						};
 
-						// OBJET FINAL A ENVOYER
-						console.log(finalDatasToSend);
 
-						// envoi de la commande au backend pour confirmation
-						function sendfinalOrder() {
-							fetch('http://localhost:3000/api/products/order', {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify(finalDatasToSend),
-							});
-						}
-						sendfinalOrder();
+						// TO CHECK
+						await sendfinalOrder(
+							'http://localhost:3000/api/products/order',
+							finalDatasToSend
+						);
 					}
 				}
 
