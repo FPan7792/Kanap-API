@@ -1,7 +1,6 @@
 const currentUrl = window.location.href;
 const url = new URL(currentUrl);
 const id = url.searchParams.get("id");
-console.log(id);
 
 let requestedCouch; // l'élement produit ciblé par la requete
 const titleInHead = document.querySelector("title");
@@ -11,6 +10,9 @@ const description = document.getElementById("description");
 const colorSelection = document.querySelector("select"); // il faudra y ajouter 2 elements option + les values + le texte
 const requestedQuantity = document.querySelector("#quantity");
 
+/**
+ * affiche les informations de l'item
+ */
 const fillPageWithDatas = () => {
   titleInHead.textContent = requestedCouch.name;
   title.textContent = requestedCouch.name;
@@ -36,10 +38,10 @@ fetch("http://localhost:3000/api/products")
       }
     }
   })
-  .catch((e) => console.error(e))
   .then(() => {
     fillPageWithDatas(); // remplir la page de données
-  });
+  })
+  .catch((e) => displayError(e));
 
 const addItemToBasket = async () => {
   if (colorSelection.value !== "") {
@@ -64,3 +66,15 @@ const addToCartButton = document.querySelector("#addToCart");
 
 addToCartButton.addEventListener("click", addItemToBasket);
 colorSelection.addEventListener("change", () => (requestedQuantity.value = 0));
+
+/**
+ * affiche l'erreur si la requete n'aboutit pas
+ * @param { Error } error
+ */
+function displayError(error) {
+  console.dir(error);
+  const item = document.querySelector(".item");
+  const errorMessage = (document.createElement("p").textContent =
+    error.message);
+  item.innerHTML = errorMessage;
+}

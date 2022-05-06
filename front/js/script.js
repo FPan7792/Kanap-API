@@ -14,6 +14,34 @@ class Couch {
 const itemsSection = document.getElementById("items"); // section qui va contenir les données dynamiques
 const tabOfCouches = []; // tableau qui va contenir les données de l'api une fois traitées
 
+fetch("http://localhost:3000/api/products")
+  .then((response) => {
+    return response.json();
+  })
+  .then((datas) => {
+    for (Element of datas) {
+      const newCouch = new Couch(
+        tabOfCouches.length,
+        Element.colors,
+        Element._id,
+        Element.name,
+        Element.price,
+        Element.imageUrl,
+        Element.description,
+        Element.altTxt
+      );
+
+      tabOfCouches.push(newCouch);
+    }
+  })
+  .catch((e) => displayError(e))
+  .then(fillItemsSectionWithDatas)
+  .finally(() => console.log(tabOfCouches));
+
+/**
+ * affiche l'erreur si la requete n'aboutit pas
+ * @param { Error } error
+ */
 function displayError(error) {
   console.log(error);
   const item = document.createElement("p");
@@ -21,6 +49,9 @@ function displayError(error) {
   itemsSection.appendChild(item);
 }
 
+/**
+ * creation d'un item produit
+ */
 function fillItemsSectionWithDatas() {
   tabOfCouches.forEach((elem) => {
     // creation d'une carte dans le HTML pour chaque element du tableau
@@ -36,32 +67,4 @@ function fillItemsSectionWithDatas() {
 
     itemsSection.appendChild(item);
   });
-}
-
-getDatasFromAPI();
-
-function getDatasFromAPI() {
-  fetch("http://localhost:3000/api/products")
-    .then((response) => {
-      return response.json();
-    })
-    .then((datas) => {
-      for (Element of datas) {
-        const newCouch = new Couch(
-          tabOfCouches.length,
-          Element.colors,
-          Element._id,
-          Element.name,
-          Element.price,
-          Element.imageUrl,
-          Element.description,
-          Element.altTxt
-        );
-
-        tabOfCouches.push(newCouch);
-      }
-    })
-    .catch((e) => displayError(e))
-    .then(fillItemsSectionWithDatas)
-    .finally(() => console.log(tabOfCouches));
 }

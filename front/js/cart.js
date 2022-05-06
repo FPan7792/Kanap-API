@@ -11,6 +11,9 @@ fetch("http://localhost:3000/api/products")
     datasFromAPI = datas;
   })
   .then(() => {
+    /**
+     * récupère les données stockées dans le local storage
+     */
     const getValuesFromLocalStorage = () => {
       const KEYS = [];
 
@@ -82,6 +85,10 @@ fetch("http://localhost:3000/api/products")
   })
   .then(() => {
     // gerer les infos de la commande finale
+
+    /**
+     * calcule et affiche le prix total
+     */
     async function displayTotalBasketPrice() {
       const allSelectedItemPrices = [];
 
@@ -100,6 +107,10 @@ fetch("http://localhost:3000/api/products")
 
     // gestion des items par article
     allArticles.forEach((article) => {
+      /**
+       * cible l'élement choisi et change la quantité dans le panier
+       * @param { Event } e
+       */
       async function changeCouchQuantity(e) {
         const itemToModify = BASKET.findIndex(
           (item) =>
@@ -117,6 +128,9 @@ fetch("http://localhost:3000/api/products")
         window.location.reload();
       }
 
+      /**
+       * cible l'élément choisi et le supprime du panier
+       */
       async function removeItemFromLocalStorage() {
         const itemToDelete = BASKET.findIndex(
           (item) =>
@@ -159,9 +173,13 @@ fetch("http://localhost:3000/api/products")
       let emailInput;
       // ===============
 
-      async function sendDatasToAPIForConfirmation(event) {
+      /**
+       * récupère les données et les envoie à l'API
+       * @param { Event } e
+       */
+      async function sendDatasToAPIForConfirmation(e) {
+        e.preventDefault();
         updateInputsValues();
-        event.preventDefault();
 
         await collectAndSendDatasfromInputs(
           firstNameInput,
@@ -174,6 +192,12 @@ fetch("http://localhost:3000/api/products")
 
       // GESTION DES ERREURS
       const missingInformations = "Vous devez remplir cette entrée";
+
+      /**
+       * affiche un message d'erreur
+       * @param { String } element
+       * @param { String } [message="Vous devez remplir cette entrée"]
+       */
       function generateErrorMessage(element, message = missingInformations) {
         const errorMessage = form.querySelector(`#${element}`);
         errorMessage.textContent = message;
@@ -183,12 +207,21 @@ fetch("http://localhost:3000/api/products")
       }
 
       // vérification de chaque entrée du formulaire
+
+      /**
+       * affiche l'erreur si la requete n'aboutit pas
+       * @param { String } firstNameValue
+       * @param { String } lastNameValue
+       * @param { String } addressValue
+       * @param { String } cityValue
+       * @param { String } emailValue
+       */
       function inputsChecks(
-        firstNameInput,
-        lastNameInput,
-        addressInput,
-        cityInput,
-        emailInput
+        firstNameValue,
+        lastNameValue,
+        addressValue,
+        cityValue,
+        emailValue
       ) {
         let firstName = false;
         let lastName = false;
@@ -196,10 +229,10 @@ fetch("http://localhost:3000/api/products")
         let city = false;
         let email = false;
 
-        if (firstNameInput !== "") {
-          let validCharacters = firstNameInput.match(/[a-zA-Z]/g);
+        if (firstNameValue !== "") {
+          let validCharacters = firstNameValue.match(/[a-zA-Z]/g);
 
-          if (validCharacters.length !== firstNameInput.length) {
+          if (validCharacters.length !== firstNameValue.length) {
             generateErrorMessage(
               "firstNameErrorMsg",
               "Les chiffres et les caractères spéciaux ne sont pas autorisés pour cette entrée"
@@ -207,10 +240,10 @@ fetch("http://localhost:3000/api/products")
           } else firstName = true;
         } else generateErrorMessage("firstNameErrorMsg");
 
-        if (lastNameInput !== "") {
-          let validCharacters = lastNameInput.match(/[a-zA-Z]/g);
+        if (lastNameValue !== "") {
+          let validCharacters = lastNameValue.match(/[a-zA-Z]/g);
 
-          if (validCharacters.length !== lastNameInput.length) {
+          if (validCharacters.length !== lastNameValue.length) {
             generateErrorMessage(
               "lastNameErrorMsg",
               "Les chiffres et les caractères spéciaux ne sont pas autorisés pour cette entrée"
@@ -218,15 +251,15 @@ fetch("http://localhost:3000/api/products")
           } else lastName = true;
         } else generateErrorMessage("lastNameErrorMsg");
 
-        if (addressInput !== "") {
+        if (addressValue !== "") {
           address = true;
         } else generateErrorMessage("addressErrorMsg");
 
-        if (cityInput !== "") {
+        if (cityValue !== "") {
           city = true;
         } else generateErrorMessage("cityErrorMsg");
 
-        if (emailInput !== "") {
+        if (emailValue !== "") {
           if (!emailInput.includes("@")) {
             generateErrorMessage(
               "emailErrorMsg",
@@ -241,6 +274,11 @@ fetch("http://localhost:3000/api/products")
       }
 
       //   ENVOIE DES DONNES FINALES AU BACKEND
+      /**
+       * envoie un requete de données en POST
+       * @param { String } url
+       * @param { Object } datas
+       */
       function sendFinalOrder(url, datas) {
         console.log(datas);
         fetch(url, {
@@ -259,6 +297,9 @@ fetch("http://localhost:3000/api/products")
           });
       }
 
+      /**
+       * collecte les données des entrées du formulaire
+       */
       async function updateInputsValues() {
         firstNameInput = form.querySelector("#firstName").value;
         lastNameInput = form.querySelector("#lastName").value;
@@ -268,6 +309,15 @@ fetch("http://localhost:3000/api/products")
       }
 
       // Recuperation des données saines après validation des inputs
+
+      /**
+       * collecte et valide les données puis les envoie à l'API
+       * @param { String } firstName
+       * @param { String } lastName
+       * @param { String } address
+       * @param { String } city
+       * @param { String } email
+       */
       async function collectAndSendDatasfromInputs(
         firstName,
         lastName,
