@@ -292,7 +292,7 @@ fetch("http://localhost:3000/api/products")
           .then((result) => {
             console.log("DATAS ENVOYEE AVEC SUCCES VOICI LES DATAS", result);
             window.location.assign(
-              `http://127.0.0.1:5500/html/confirmation.html?orderId=${result.orderId}`
+              `http://127.0.0.1:5500/front/html/confirmation.html?orderId=${result.orderId}`
             );
           });
       }
