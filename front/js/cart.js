@@ -3,7 +3,7 @@ let datasFromAPI;
 let BASKET = [];
 let couchesToDisplay = [];
 
-fetch("http://localhost:3000/api/products")
+fetch("https://kanap-api-back.herokuapp.com/api/products")
   .then((response) => {
     return response.json();
   })
@@ -357,7 +357,7 @@ fetch("http://localhost:3000/api/products")
 
           // OK
           await sendFinalOrder(
-            "http://localhost:3000/api/products/order",
+            "https://kanap-api-back.herokuapp.com/api/products/order",
             finalDatasToSend
           );
         }

@@ -14,7 +14,7 @@ class Couch {
 const itemsSection = document.getElementById("items"); // section qui va contenir les données dynamiques
 const tabOfCouches = []; // tableau qui va contenir les données de l'api une fois traitées
 
-fetch("http://localhost:3000/api/products")
+fetch("https://kanap-api-back.herokuapp.com/api/products")
   .then((response) => {
     return response.json();
   })
