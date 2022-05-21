@@ -8,7 +8,10 @@ Skills :
 Moderniser un site web avec Vanilla JS
 Manipuler des données synchronisée avec une API e-commerce
 
+Hosting :
+Vercel
+
 Lien vers le site :
-https://kanap-ion9jbrwq-fpan7792.vercel.app/
+https://kanap-api.vercel.app/
 
 Merci d'avoir visité ce REPO =)
