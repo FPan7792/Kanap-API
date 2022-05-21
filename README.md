@@ -1,15 +1,14 @@
-# Kanap #
+# Kanap
 
-This is the front end and back end server for Project 5 of the Web Developer path.
+Kanap est un site e-commerce. Vous pouvez choisir le modèle de canapé qui vous plait et passer une commande en quelques clics seulement.
 
-### Back end Prerequisites ###
+Le site à été construit sur le modèle des sites e-commerces modernes
 
-You will need to have Node and `npm` installed locally on your machine.
+Skills :
+Moderniser un site web avec Vanilla JS
+Manipuler des données synchronisée avec une API e-commerce
 
-### Back end Installation ###
+Lien vers le site :
+https://kanap-ion9jbrwq-fpan7792.vercel.app/
 
-Clone this repo. From the "back" folder of the project, run `npm install`. You 
-can then run the server with `node server`. 
-The server should run on `localhost` with default port `3000`. If the
-server runs on another port for any reason, this is printed to the
-console when the server starts, e.g. `Listening on port 3001`.
+Merci d'avoir visité ce REPO =)
