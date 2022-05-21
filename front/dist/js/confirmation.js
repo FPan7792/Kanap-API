@@ -1,0 +1,1 @@
+(()=>{const e=window.location.href,t=new URL(e).searchParams.get("orderId");!function(){const e=document.querySelector("#orderId");e.style.fontWeight="bold",e.textContent=t}()})();
